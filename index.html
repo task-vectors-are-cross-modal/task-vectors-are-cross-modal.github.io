@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+
+  <title>Task Vectors are Cross-Modal</title>
+  <meta property="og:title" content="Task Vectors are Cross-Modal">
+  <meta property="og:type" content="website">
+  <!-- <meta property="og:url" content="TODO"/> -->
+  <!-- <meta name="description" content="TODO"> -->
+  <!-- <meta name="keywords" content="TODO"> -->
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/custom.css">
+  <link rel="stylesheet" href="./static/css/fonts.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/interactions.js"></script>
+
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body" style="padding: 3rem 1.5rem 0.5rem 1.5rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Task Vectors are Cross-Modal</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://people.eecs.berkeley.edu/~graceluo" target="_blank">Grace Luo</a>
+            </span>
+            <span class="author-block">
+              <a href="http://people.eecs.berkeley.edu/~trevor" target="_blank">Trevor Darrell</a>
+            </span>
+            <span class="author-block">
+              <a href="https://www.amirbar.net" target="_blank">Amir Bar</a>
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">UC Berkeley</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="is-centered has-text-centered">
+      <p>
+        <b>TLDR:</b> Task representations in VLMs are consistent across modality (text, image) and specification (example, instruction).
+      </p>
+      <br>
+      <div class="max-width-content">
+        <video id="teaser" muted playsinline onclick="playVideo('teaser')">
+          <source src="assets/teaser.m4v" type="video/mp4">
+        </video>
+        <br>
+        <button class="button is-white btn-teaser" onclick="playVideo('teaser')">
+          <img style="margin-right: 5px;" src="assets/hand.svg" />
+          Click to animate figure
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">Abstract</h2>
+        <div class="content has-text-left">
+          <p>
+            We investigate the internal representations of vision-and-language models (VLMs) and how they encode task representations. We consider tasks specified through examples or instructions, using either text or image inputs. Surprisingly, we find that conceptually similar tasks are mapped to similar task vector representations, regardless of how they are specified. Our findings suggest that to output answers, tokens in VLMs undergo three distinct phases: input, task, and answer, a process which is consistent across different modalities and specifications. The task vectors we identify in VLMs are general enough to be derived in one modality (e.g., text) and transferred to another (e.g., image). Additionally, we find that ensembling exemplar and instruction based task vectors produce better task representations. Taken together, these insights shed light on the underlying mechanisms of VLMs, particularly their ability to represent tasks in a shared manner across different modalities and task specifications.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<hr>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">What is a task vector?</h2>
+        <div class="max-width-content">
+          <video id="approach" muted playsinline onclick="playVideo('approach')">
+            <source src="assets/approach.m4v" type="video/mp4">
+          </video>
+          <br>
+          <button class="button is-white btn-teaser" onclick="playVideo('approach')">
+            <img style="margin-right: 5px;" src="assets/hand.svg" />
+            Click to animate figure
+          </button>
+        </div>
+        <br>
+        <div class="content has-text-left">
+          <p>
+            In the in-context learning (ICL) paradigm, given a set of examples, the model has to learn the mapping from inputs to outputs. Prior research has demonstrated that LLMs implicitly compress this mapping into a latent activation, called the task vector (<a href="https://arxiv.org/abs/2310.15916" target="_blank">Hendel et al., 2023</a>; <a href="https://functions.baulab.info" target="_blank">Todd et al., 2024</a>). This means one can separately specify (left) and apply (right) a task by patching the task vector. We analyze this phenomenon in VLMs, where we find that different specifications like text versus image ICL induce similar task vectors, thereby enabling cross-modal patching.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<hr>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="max-width-content">
+          <h2 class="title is-4 is-centered has-text-centered">
+            We study task vectors in six cross-modal settings.
+          </h2>
+          <div id="select-task" onchange="showTaskRow('task')">
+            <span>
+              Task:
+              <select>
+                <option>Country-Capital</option>
+                <option>Country-Currency</option>
+                <option>Animal-Latin</option>
+                <option>Animal-Young</option>
+                <option>Food-Color</option>
+                <option>Food-Flavor</option>
+              </select>
+            </span>
+          </div>
+          <div style="padding-top: 5px; color: #C7C7C7;">
+            <img style="width: 20px; margin-top: -3px;" src="assets/info.svg" />
+            Click the underlined text for dropdown menu
+          </div>
+          <br>
+          <div class="table-container task-examples">
+            <table class="table is-bordered is-hoverable has-text-left">
+              <thead>
+                <tr id="header">
+                  <th style="width: 30%;">Instruction</th>
+                  <th style="width: 35%;">Text ICL Example</th>
+                  <th style="width: 35%;">Image ICL Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="country-capital">
+                  <td><em>The capital city of the country:</em></td>
+                  <td>Greece : <strong>Athens</strong></td>
+                  <td><img src="assets/task_examples/country-capital.png"> : <strong>Athens</strong></td>
+                </tr>
+                <tr class="row-content" id="country-currency">
+                  <td><em>The last word of the official currency of the country:</em></td>
+                  <td>Italy : <strong>Euro</strong></td>
+                  <td><img src="assets/task_examples/country-currency.png"> : <strong>Euro</strong></td>
+                </tr>
+                <tr class="row-content" id="animal-latin">
+                  <td><em>The scientific name of the animal’s species in latin:</em></td>
+                  <td>Gray Wolf : <strong>Canis lupus</strong></td>
+                  <td><img src="assets/task_examples/animal-latin.png"> : <strong>Canis lupus</strong></td>
+                </tr>
+                <tr class="row-content" id="animal-young">
+                  <td><em>The term for the baby of the animal:</em></td>
+                  <td>Common Dolphin : <strong>calf</strong></td>
+                  <td><img src="assets/task_examples/animal-young.png"> : <strong>calf</strong></td>
+                </tr>
+                <tr class="row-content" id="food-color">
+                  <td><em>The color of the food:</em></td>
+                  <td>Persimmon : <strong>orange</strong></td>
+                  <td><img src="assets/task_examples/food-color.png"> : <strong>orange</strong></td>
+                </tr>
+                <tr class="row-content" id="food-flavor">
+                  <td><em>The flavor descriptor of the food:</em></td>
+                  <td>Strawberry : <strong>sweet</strong></td>
+                  <td><img src="assets/task_examples/food-flavor.png"> : <strong>sweet</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="content has-text-left">
+            <p>
+              We design six tasks inspired by the text ICL examples proposed in prior work, where we add alternative specifications such as instructions and image examples.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="max-width-content">
+          <h2 class="title is-4 is-centered has-text-centered">
+            How do ICL examples affect the representation across model layers?
+          </h2>
+          <div id="select-tokenrep" class="select-row">
+            <span>
+              Modality:
+              <select onchange="changeVideo('tokenrep')">
+                <option>Text ICL</option>
+                <option>Image ICL</option>
+              </select>
+            </span>
+            <span>
+              Task:
+              <select onchange="changeVideo('tokenrep')">
+                <option>Country-Capital</option>
+                <option>Country-Currency</option>
+                <option>Animal-Latin</option>
+                <option>Animal-Young</option>
+                <option>Food-Color</option>
+                <option>Food-Flavor</option>
+              </select>
+            </span>
+          </div>
+          <div style="padding-top: 5px; color: #C7C7C7;">
+            <img style="width: 20px; margin-top: -3px;" src="assets/info.svg" />
+            Click the underlined text for dropdown menu
+          </div>
+          <br>
+          <div>
+            <div style="display: flex;">
+              <img src="assets/token_rep/empty.png">
+              <video id="tokenrep" class="layered-video" muted playsinline onclick="playVideo('tokenrep')">
+                <source src="assets/token_rep/text_country-capital.m4v" type="video/mp4">
+              </video>
+            </div>
+            <br>
+            <img style="max-width:30vw; margin-bottom:10px;" src="assets/token_rep/legend.png" />
+            <button class="button is-white btn-teaser" onclick="playVideo('tokenrep')">
+              <img style="margin-right: 5px;" src="assets/hand.svg" />
+              Click to animate figure
+            </button>
+          </div>
+          <br>
+          <div class="content has-text-left">
+            <p>
+              We find that, to complete the task, the model processes the token representation in three phases: input, task, and answer. We use logit lens (<a href="https://www.lesswrong.com/posts/AcKRB8wDpdaN6v6ru/interpreting-gpt-the-logit-lens" target="_blank">nostalgebraist, 2020</a>) to decode the layer representation for the token before the model output and visualize the probability that this representation decodes to a pre-defined input, task, or answer token. Each plot showcases a different set of examples, which vary by modality and task.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="max-width-content">
+          <h2 class="title is-4 is-centered has-text-centered">
+            Cross-modal patching can outperform unimodal few-shot prompting.
+          </h2>
+          <div id="select-xpatch" class="select-row">
+            <span>
+              Model:
+              <select onchange="changeVideo('xpatch')">
+                <option>Idefics2</option>
+                <option>Mantis-Fuyu</option>
+                <option>LLaVA-v1.5</option>
+              </select>
+            </span>
+            <span>
+              Task:
+              <select onchange="changeVideo('xpatch')">
+                <option>Average</option>
+                <option>Country-Capital</option>
+                <option>Country-Currency</option>
+                <option>Animal-Latin</option>
+                <option>Animal-Young</option>
+                <option>Food-Color</option>
+                <option>Food-Flavor</option>
+              </select>
+            </span>
+          </div>
+          <div style="padding-top: 5px; color: #C7C7C7;">
+            <img style="width: 20px; margin-top: -3px;" src="assets/info.svg" />
+            Click the underlined text for dropdown menu
+          </div>
+          <div>
+            <div style="display: flex;">
+              <img src="assets/xpatch/empty.png">
+              <video id="xpatch" class="layered-video" muted playsinline onclick="playVideo('xpatch')">
+                <source src="assets/xpatch/idefics2_average.m4v" type="video/mp4">
+              </video>
+            </div>
+            <br>
+            <button class="button is-white btn-teaser" onclick="playVideo('xpatch')">
+              <img style="margin-right: 5px;" src="assets/hand.svg" />
+              Click to animate figure
+            </button>
+          </div>
+          <br>
+          <div class="content has-text-left">
+            <p>
+              We compare the task accuracy across different methods for specifying and applying the task on image queries. Surprisingly, cross-modal examples are more effective than unimodal ones (Text ICL xPatch vs. Image ICL Patch). However, we only see this benefit when the examples are patched as a task vector, not given in the same context window as a few-shot prompt (Text ICL xPatch vs. Text ICL xBase). We think this is the case because task vectors, regardless of how they are derived, arrive at similar representations, making diverse example types more in-domain for the model.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="max-width-content">
+          <h2 class="title is-4 is-centered has-text-centered">
+            Qualitative Examples
+          </h2>
+          <div id="qualitative" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+               <!--  <span><b>Text ICL Examples + Image Query</b></span -->
+                <div class="carousel-card">
+                  <div style="display: flex;">
+                    <video id="text_icl" muted playsinline onclick="playVideo('text_icl')">
+                      <source src="assets/qualitative_examples/text_icl.m4v" type="video/mp4">
+                    </video>
+                  </div>
+                  <button class="button is-white btn-teaser" onclick="playVideo('text_icl')">
+                    <img style="margin-right: 5px;" src="assets/hand.svg" />
+                    Click to animate figure
+                  </button>
+                  <br>
+                  <div class="content has-text-left">
+                    <p>
+                      <b>Text ICL Examples + Image Query.</b> When cross-modal examples are provided in the same context window (xBase), the model often regurgitates the input, whereas cross-modal patching (xPatch) successfully performs the task.
+                      <br>&nbsp;
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+               <!--  <span><b>Instruction + Image Query</b></span> -->
+                <div class="carousel-card">
+                  <div style="display: flex;">
+                    <video id="instruction" muted playsinline onclick="playVideo('instruction')">
+                      <source src="assets/qualitative_examples/instruction.m4v" type="video/mp4">
+                    </video>
+                  </div>
+                  <button class="button is-white btn-teaser" onclick="playVideo('instruction')">
+                    <img style="margin-right: 5px;" src="assets/hand.svg" />
+                    Click to animate figure
+                  </button>
+                  <br>
+                  <div class="content has-text-left">
+                    <p>
+                      <b>Instruction + Image Query.</b> Task vectors can not only be instantiated via examples but also via brief instructions. Instruction and exemplar-based task vectors can be ensembled such that fewer examples are needed to achieve the same task accuracy.
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <!-- <span><b>Image ICL Examples + Text Query</b></span> -->
+                <div class="carousel-card">
+                  <div style="display: flex;">
+                    <video id="image_icl" muted playsinline onclick="playVideo('image_icl')">
+                      <source src="assets/qualitative_examples/image_icl.m4v" type="video/mp4">
+                    </video>
+                  </div>
+                  <button class="button is-white btn-teaser" onclick="playVideo('image_icl')">
+                    <img style="margin-right: 5px;" src="assets/hand.svg" />
+                    Click to animate figure
+                  </button>
+                  <br>
+                  <div class="content has-text-left">
+                    <p>
+                      <b>Image ICL Examples + Text Query.</b> When transferring from image to text, cross-modal patching (xPatch) can also be helpful over few-show prompting (xBase). However, this benefit is better observed in tasks involving dense text descriptions over our six constructed tasks.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#qualitative" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next" href="#qualitative" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-4">Relevant Readings</h2>
+    If you like this work, these other projects might also interest you.
+    <ul>
+      <li>
+        <b>Task / Function Vectors in LLMs and Vision Models:</b>
+        <a href="https://arxiv.org/abs/2310.15916" target="_blank">Hendel et al., 2023</a>; 
+        <a href="https://functions.baulab.info" target="_blank">Todd et al., 2024</a>;
+        <a href="https://arxiv.org/abs/2404.05729" target="_blank">Hojel et al., 2024</a>
+      </li>
+      <li>
+          <b>Viewing Task Vectors as Example Compression:</b>
+          <a href="https://arxiv.org/abs/2406.15334" target="_blank">Huang et al., 2024</a>
+      </li>
+      <li>
+        <b>Representational Isomorphism and Convergence:</b> 
+        <a href="https://arxiv.org/abs/2109.06129" target="_blank">Abdou et al., 2021</a>;
+        <a href="https://openreview.net/forum?id=gJcEM8sxHK" target="_blank">Patel & Pavlick, 2022</a>;
+        <a href="https://royalsocietypublishing.org/doi/10.1098/rsta.2022.0041" target="_blank">Pavlick, 2023</a>;
+        <a href="https://phillipi.github.io/prh" target="_blank">Huh et al., 2024</a>
+      </li>
+    </ul>
+    <h2 class="title is-4">Acknowledgements</h2>
+    <span>
+      We would like to thank Jiahai Feng, Stephanie Fu, and Alexander Pan for helpful discussions and feedback on the paper.
+    </span>
+    <h2 class="title is-4">BibTeX</h2>
+    <pre><code>
+    @misc{luo2024tvacm,
+      title={Task Vectors are Cross-Modal}, 
+      author={Grace Luo and Trevor Darrell and Amir Bar},
+      year={2024},
+      eprint={},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={}, 
+    }
+    </code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            The website template is based on the
+            <a href="https://nerfies.github.io">Nerfies</a> and
+            <a href="https://readout-guidance.github.io">Readout Guidance</a> project pages.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
