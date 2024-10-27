@@ -82,11 +82,25 @@ select:focus {
 }
 
 .carousel-item .carousel-card {
-  max-width: 450px;
+  max-width: 550px;
   margin: 0 auto;
+}
+
+.carousel-control-prev {
+  position: absolute;
+  left: -50px;
+}
+
+.carousel-control-next {
+  position: absolute;
+  right: -50px;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.carousel-description {
+  height: 250px;
 }

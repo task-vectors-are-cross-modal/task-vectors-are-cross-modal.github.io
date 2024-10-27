@@ -9,7 +9,7 @@
   <title>Task Vectors are Cross-Modal</title>
   <meta property="og:title" content="Task Vectors are Cross-Modal">
   <meta property="og:type" content="website">
-  <!-- <meta property="og:url" content="TODO"/> -->
+  <!-- <meta property="og:url" content="TODO"> -->
   <!-- <meta name="description" content="TODO"> -->
   <!-- <meta name="keywords" content="TODO"> -->
 
@@ -343,7 +343,7 @@
 </section>
 
 <hr>
-<section class="section">
+<section class="section" style="padding-bottom: 1rem !important;">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -354,7 +354,6 @@
           <div id="qualitative" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-               <!--  <span><b>Text ICL Examples + Image Query</b></span -->
                 <div class="carousel-card">
                   <div style="display: flex;">
                     <video id="text_icl" muted playsinline onclick="playVideo('text_icl')">
@@ -366,15 +365,13 @@
                     Click to animate figure
                   </button>
                   <br>
-                  <div class="content has-text-left">
+                  <div class="content has-text-left carousel-description">
                     <p>
                       <b>Text ICL Examples + Image Query.</b> When cross-modal examples are provided in the same context window (xBase), the model often regurgitates the input, whereas cross-modal patching (xPatch) successfully performs the task.
-                      <br>&nbsp;
                   </div>
                 </div>
               </div>
               <div class="carousel-item">
-               <!--  <span><b>Instruction + Image Query</b></span> -->
                 <div class="carousel-card">
                   <div style="display: flex;">
                     <video id="instruction" muted playsinline onclick="playVideo('instruction')">
@@ -386,14 +383,13 @@
                     Click to animate figure
                   </button>
                   <br>
-                  <div class="content has-text-left">
+                  <div class="content has-text-left carousel-description">
                     <p>
                       <b>Instruction + Image Query.</b> Task vectors can not only be instantiated via examples but also via brief instructions. Instruction and exemplar-based task vectors can be ensembled such that fewer examples are needed to achieve the same task accuracy.
                   </div>
                 </div>
               </div>
               <div class="carousel-item">
-                <!-- <span><b>Image ICL Examples + Text Query</b></span> -->
                 <div class="carousel-card">
                   <div style="display: flex;">
                     <video id="image_icl" muted playsinline onclick="playVideo('image_icl')">
@@ -405,7 +401,7 @@
                     Click to animate figure
                   </button>
                   <br>
-                  <div class="content has-text-left">
+                  <div class="content has-text-left carousel-description">
                     <p>
                       <b>Image ICL Examples + Text Query.</b> When transferring from image to text, cross-modal patching (xPatch) can also be helpful over few-show prompting (xBase). However, this benefit is better observed in tasks involving dense text descriptions over our six constructed tasks.
                   </div>
@@ -425,6 +421,7 @@
   </div>
 </section>
 
+<hr>
 <section class="section">
   <div class="container is-max-desktop content">
     <h2 class="title is-4">Relevant Readings</h2>
