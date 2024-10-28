@@ -2,11 +2,31 @@
   html {
     font-size: 1.2rem;
   }
+
+  .carousel-control-prev {
+    position: absolute;
+    left: -100px;
+  }
+
+  .carousel-control-next {
+    position: absolute;
+    right: -100px;
+  }
 }
 
 @media (max-width: 769px) {
   html {
     font-size: 1rem;
+  }
+
+  .carousel-control-prev {
+    position: absolute;
+    left: -50px;
+  }
+
+  .carousel-control-next {
+    position: absolute;
+    right: -50px;
   }
 }
 
@@ -92,16 +112,6 @@ select:focus {
 .carousel-item .carousel-card {
   max-width: 700px;
   margin: 0 auto;
-}
-
-.carousel-control-prev {
-  position: absolute;
-  left: -50px;
-}
-
-.carousel-control-next {
-  position: absolute;
-  right: -50px;
 }
 
 .carousel-control-prev-icon,
