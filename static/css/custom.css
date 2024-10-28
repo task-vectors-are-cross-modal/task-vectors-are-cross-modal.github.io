@@ -1,3 +1,15 @@
+@media (min-width: 769px) {
+  html {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 769px) {
+  html {
+    font-size: 1rem;
+  }
+}
+
 body {
   color: black;
 }
@@ -11,10 +23,6 @@ hr {
 .max-width-content {
   max-width: 70vw; 
   margin: 0 auto;
-}
-
-.is-max-desktop {
-  max-width: 80vw;
 }
 
 video {
@@ -73,7 +81,7 @@ select:focus {
   overflow-y: auto;
 }
 
-.task-examples img{
+.task-examples img {
   width: 50px;
 }
 
@@ -82,7 +90,7 @@ select:focus {
 }
 
 .carousel-item .carousel-card {
-  max-width: 550px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -102,5 +110,5 @@ select:focus {
 }
 
 .carousel-description {
-  height: 250px;
+  margin-top: 20px;
 }

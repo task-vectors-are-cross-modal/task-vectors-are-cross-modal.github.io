@@ -62,7 +62,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://github.com/g-luo/task_vectors_are_cross_modal" target="_blank" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
@@ -77,7 +77,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="padding-top: 1rem;">
   <div class="container is-max-desktop">
     <div class="is-centered has-text-centered">
       <p>
@@ -265,7 +265,7 @@
               </video>
             </div>
             <br>
-            <img style="max-width:30vw; margin-bottom:10px;" src="assets/token_rep/legend.png" />
+            <img style="margin-bottom:10px; max-width: min(40vw, 40vh);" src="assets/token_rep/legend.png" />
             <button class="button is-white btn-teaser" onclick="playVideo('tokenrep')">
               <img style="margin-right: 5px;" src="assets/hand.svg" />
               Click to animate figure
@@ -334,7 +334,7 @@
           <br>
           <div class="content has-text-left">
             <p>
-              We compare the task accuracy across different methods for specifying and applying the task on image queries. Surprisingly, cross-modal examples are more effective than unimodal ones (Text ICL xPatch vs. Image ICL Patch). However, we only see this benefit when the examples are patched as a task vector, not given in the same context window as a few-shot prompt (Text ICL xPatch vs. Text ICL xBase). We think this is the case because task vectors, regardless of how they are derived, arrive at similar representations, making diverse example types more in-domain for the model.
+              We compare the task accuracy across different methods for specifying and applying the task on image queries. We observe that cross-modal examples are more effective than unimodal ones (Text ICL xPatch vs. Image ICL Patch). However, we only see this benefit when the examples are patched as a task vector, not given in the same context window as a few-shot prompt (Text ICL xPatch vs. Text ICL xBase). We think this is the case because task vectors, regardless of how they are derived, arrive at similar representations, making diverse example types more in-domain for the model.
           </div>
         </div>
       </div>
@@ -343,7 +343,7 @@
 </section>
 
 <hr>
-<section class="section" style="padding-bottom: 1rem !important;">
+<section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -355,55 +355,28 @@
             <div class="carousel-inner">
               <div class="carousel-item active">
                 <div class="carousel-card">
-                  <div style="display: flex;">
-                    <video id="text_icl" muted playsinline onclick="playVideo('text_icl')">
-                      <source src="assets/qualitative_examples/text_icl.m4v" type="video/mp4">
-                    </video>
-                  </div>
-                  <button class="button is-white btn-teaser" onclick="playVideo('text_icl')">
-                    <img style="margin-right: 5px;" src="assets/hand.svg" />
-                    Click to animate figure
-                  </button>
-                  <br>
+                  <img src="assets/qualitative_examples/text_icl.png">
                   <div class="content has-text-left carousel-description">
                     <p>
-                      <b>Text ICL Examples + Image Query.</b> When cross-modal examples are provided in the same context window (xBase), the model often regurgitates the input, whereas cross-modal patching (xPatch) successfully performs the task.
+                      <b>Text ICL Examples + Image Query.</b> Few-shot prompting with text ICL often regurgitates the input, whereas cross-modal patching successfully performs the task (Text ICL xBase vs. xPatch). Compared with images, text examples also consume less memory and are easy to curate.
                   </div>
                 </div>
               </div>
               <div class="carousel-item">
                 <div class="carousel-card">
-                  <div style="display: flex;">
-                    <video id="instruction" muted playsinline onclick="playVideo('instruction')">
-                      <source src="assets/qualitative_examples/instruction.m4v" type="video/mp4">
-                    </video>
-                  </div>
-                  <button class="button is-white btn-teaser" onclick="playVideo('instruction')">
-                    <img style="margin-right: 5px;" src="assets/hand.svg" />
-                    Click to animate figure
-                  </button>
-                  <br>
+                  <img src="assets/qualitative_examples/instruction.png">
                   <div class="content has-text-left carousel-description">
                     <p>
-                      <b>Instruction + Image Query.</b> Task vectors can not only be instantiated via examples but also via brief instructions. Instruction and exemplar-based task vectors can be ensembled such that fewer examples are needed to achieve the same task accuracy.
+                      <b>Instruction + Image Query.</b> Task vectors can not only be instantiated via examples but also brief instructions. Ensembling instruction-based vectors with exemplar-based vectors can reduce the number of input-output examples needed to achieve the same task accuracy.
                   </div>
                 </div>
               </div>
               <div class="carousel-item">
                 <div class="carousel-card">
-                  <div style="display: flex;">
-                    <video id="image_icl" muted playsinline onclick="playVideo('image_icl')">
-                      <source src="assets/qualitative_examples/image_icl.m4v" type="video/mp4">
-                    </video>
-                  </div>
-                  <button class="button is-white btn-teaser" onclick="playVideo('image_icl')">
-                    <img style="margin-right: 5px;" src="assets/hand.svg" />
-                    Click to animate figure
-                  </button>
-                  <br>
+                  <img src="assets/qualitative_examples/image_icl.png">
                   <div class="content has-text-left carousel-description">
                     <p>
-                      <b>Image ICL Examples + Text Query.</b> When transferring from image to text, cross-modal patching (xPatch) can also be helpful over few-show prompting (xBase). However, this benefit is better observed in tasks involving dense text descriptions over our six constructed tasks.
+                      <b>Image ICL Examples + Text Query.</b> When transferring from image to text, cross-modal patching can also be helpful over few-show prompting (Image ICL xPatch vs. xBase). However, this benefit is better observed in tasks involving dense text descriptions over our six constructed tasks.
                   </div>
                 </div>
               </div>
@@ -425,30 +398,38 @@
 <section class="section">
   <div class="container is-max-desktop content">
     <h2 class="title is-4">Relevant Readings</h2>
-    If you like this work, these other projects might also interest you.
+    <p>
+      If you like this work, these other projects might also interest you.
+    </p>
     <ul>
       <li>
-        <b>Task / Function Vectors in LLMs and Vision Models:</b>
-        <a href="https://arxiv.org/abs/2310.15916" target="_blank">Hendel et al., 2023</a>; 
-        <a href="https://functions.baulab.info" target="_blank">Todd et al., 2024</a>;
-        <a href="https://arxiv.org/abs/2404.05729" target="_blank">Hojel et al., 2024</a>
+        <p>
+          <b>Task Vectors in LLMs and Vision Models:</b>
+          <a href="https://arxiv.org/abs/2310.15916" target="_blank">Hendel et al., 2023</a>; 
+          <a href="https://functions.baulab.info" target="_blank">Todd et al., 2024</a>;
+          <a href="https://arxiv.org/abs/2404.05729" target="_blank">Hojel et al., 2024</a>
+        </p>
       </li>
       <li>
+        <p>
           <b>Viewing Task Vectors as Example Compression:</b>
           <a href="https://arxiv.org/abs/2406.15334" target="_blank">Huang et al., 2024</a>
+        </p>
       </li>
       <li>
-        <b>Representational Isomorphism and Convergence:</b> 
-        <a href="https://arxiv.org/abs/2109.06129" target="_blank">Abdou et al., 2021</a>;
-        <a href="https://openreview.net/forum?id=gJcEM8sxHK" target="_blank">Patel & Pavlick, 2022</a>;
-        <a href="https://royalsocietypublishing.org/doi/10.1098/rsta.2022.0041" target="_blank">Pavlick, 2023</a>;
-        <a href="https://phillipi.github.io/prh" target="_blank">Huh et al., 2024</a>
+        <p>
+          <b>Representational Isomorphism and Convergence:</b> 
+          <a href="https://arxiv.org/abs/2109.06129" target="_blank">Abdou et al., 2021</a>;
+          <a href="https://openreview.net/forum?id=gJcEM8sxHK" target="_blank">Patel & Pavlick, 2022</a>;
+          <a href="https://royalsocietypublishing.org/doi/10.1098/rsta.2022.0041" target="_blank">Pavlick, 2023</a>;
+          <a href="https://phillipi.github.io/prh" target="_blank">Huh et al., 2024</a>
+        </p>
       </li>
     </ul>
     <h2 class="title is-4">Acknowledgements</h2>
-    <span>
+    <p>
       We would like to thank Jiahai Feng, Stephanie Fu, and Alexander Pan for helpful discussions and feedback on the paper.
-    </span>
+    </p>
     <h2 class="title is-4">BibTeX</h2>
     <pre><code>
     @misc{luo2024tvacm,
