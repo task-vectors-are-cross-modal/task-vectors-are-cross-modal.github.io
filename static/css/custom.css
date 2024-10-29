@@ -1,33 +1,5 @@
-@media (min-width: 769px) {
-  html {
-    font-size: 14pt;
-  }
-
-  .carousel-control-prev {
-    position: absolute;
-    left: -100px;
-  }
-
-  .carousel-control-next {
-    position: absolute;
-    right: -100px;
-  }
-}
-
-@media (max-width: 769px) {
-  html {
-    font-size: 12pt;
-  }
-
-  .carousel-control-prev {
-    position: absolute;
-    left: -50px;
-  }
-
-  .carousel-control-next {
-    position: absolute;
-    right: -50px;
-  }
+html {
+  font-size: 12pt;
 }
 
 body {
@@ -43,6 +15,17 @@ hr {
 .max-width-content {
   max-width: 70vw; 
   margin: 0 auto;
+}
+
+.max-width-results {
+  max-width: min(600px, 80vw);
+}
+
+.layered-video {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%,0%);
+  left: 50%;
 }
 
 video {
@@ -87,12 +70,9 @@ select:focus {
   box-shadow: none;
 }
 
-.layered-video {
-  position: absolute;
-  max-width: 80%;
-  z-index: 2;
-  transform: translate(-50%,0%);
-  left: 50%;
+.legend {
+  margin-bottom:10px; 
+  max-width: min(40vw, 40vh);
 }
 
 .task-examples {
@@ -109,8 +89,18 @@ select:focus {
   display: none;
 }
 
+.carousel-control-prev {
+  position: absolute;
+  left: -50px;
+}
+
+.carousel-control-next {
+  position: absolute;
+  right: -50px;
+}
+
 .carousel-item .carousel-card {
-  max-width: 700px;
+  max-width: 550px;
   margin: 0 auto;
 }
 

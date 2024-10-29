@@ -119,9 +119,11 @@
       <div class="column is-four-fifths">
         <h2 class="title is-4">What is a task vector?</h2>
         <div class="max-width-content">
-          <video id="approach" muted playsinline onclick="playVideo('approach')">
-            <source src="assets/approach.m4v" type="video/mp4">
-          </video>
+          <div class="max-width-results">
+            <video id="approach" muted playsinline onclick="playVideo('approach')">
+              <source src="assets/approach.m4v" type="video/mp4">
+            </video>
+          </div>
           <br>
           <button class="button is-white btn-teaser" onclick="playVideo('approach')">
             <img style="margin-right: 5px;" src="assets/hand.svg" />
@@ -167,7 +169,7 @@
           </div>
           <br>
           <div class="table-container task-examples">
-            <table class="table is-bordered is-hoverable has-text-left">
+            <table style="min-width: 480px;" class="table is-bordered is-hoverable has-text-left">
               <thead>
                 <tr id="header">
                   <th style="width: 30%;">Instruction</th>
@@ -256,13 +258,12 @@
           <br>
           <div>
             <div style="display: flex;">
-              <img src="assets/token_rep/empty.png">
-              <video id="tokenrep" class="layered-video" muted playsinline onclick="playVideo('tokenrep')">
+              <img class="max-width-results" src="assets/token_rep/empty.png">
+              <video id="tokenrep" class="layered-video max-width-results" muted playsinline onclick="playVideo('tokenrep')">
                 <source src="assets/token_rep/text_country-capital.m4v" type="video/mp4">
               </video>
             </div>
-            <br>
-            <img style="margin-bottom:10px; max-width: min(40vw, 40vh);" src="assets/token_rep/legend.png" />
+            <img class="legend" src="assets/token_rep/legend.png" />
             <button class="button is-white btn-teaser" onclick="playVideo('tokenrep')">
               <img style="margin-right: 5px;" src="assets/hand.svg" />
               Click to animate figure
@@ -317,12 +318,11 @@
           </div>
           <div>
             <div style="display: flex;">
-              <img src="assets/xpatch/empty.png">
-              <video id="xpatch" class="layered-video" muted playsinline onclick="playVideo('xpatch')">
+              <img class="max-width-results" src="assets/xpatch/empty.png">
+              <video id="xpatch" class="layered-video max-width-results" muted playsinline onclick="playVideo('xpatch')">
                 <source src="assets/xpatch/idefics2_average.m4v" type="video/mp4">
               </video>
             </div>
-            <br>
             <button class="button is-white btn-teaser" onclick="playVideo('xpatch')">
               <img style="margin-right: 5px;" src="assets/hand.svg" />
               Click to animate figure
